@@ -1,0 +1,27 @@
+{
+    "name": "owp.http-loading-bar",
+    "description": "React loading bar for owp.http",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar.git"
+    },
+    "keywords": [
+        "http",
+        "loading-bar",
+        "open web project",
+        "owp"
+    ],
+    "author": "Andreas Arvidsson",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar/issues"
+    },
+    "homepage": "https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar",
+    "dependencies": {
+        "react-loading-bar": "latest"
+    }
+}
