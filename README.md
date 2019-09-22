@@ -1,8 +1,11 @@
-# OpenWebProject HTTP
+# OpenWebProject HTTP-loading-bar
 
 **React loading bar for owp.http**
 
-Uses [react.loading-bar](https://www.npmjs.com/package/react-loading-bar) to signal useage of [owp.http](https://github.com/AndreasArvidsson/OpenWebProject-HTTP)
+Uses [react.loading-bar](https://www.npmjs.com/package/react-loading-bar) to signal usage of [owp.http](https://github.com/AndreasArvidsson/OpenWebProject-HTTP)
+
+## Installation
+`npm install owp.http-loading-bar --save`
 
 ## Usage
 ```javascript
@@ -12,7 +15,7 @@ import LoadingBar from "owp.http-loading-bar"
 ```
 
 ## Options
-All options from [react.loading-bar](https://www.npmjs.com/package/react-loading-bar) is available.
+All options from [react.loading-bar](https://www.npmjs.com/package/react-loading-bar) are available.
 
 ```javascript
 <LoadingBar
