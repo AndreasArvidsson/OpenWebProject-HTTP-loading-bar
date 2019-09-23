@@ -12,7 +12,7 @@ let countFinished = 0;
 let isLoading = false;
 let intervalId;
 
-const HTTPLoadingBar = (props) => {
+const HTTPLoadingBar = ({ color = "green", ...rest }) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -52,6 +52,6 @@ const HTTPLoadingBar = (props) => {
     }
 
     //return <ReactLoadingBar show={show} {...props} />
-    return React.createElement(ReactLoadingBar, { show, ...props }, null);
+    return React.createElement(ReactLoadingBar, { show, color, ...rest }, null);
 }
-export default HTTPLoadingBar;
+export default React.memo(HTTPLoadingBar);
