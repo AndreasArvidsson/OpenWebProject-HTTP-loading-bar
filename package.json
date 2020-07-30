@@ -1,7 +1,7 @@
 {
     "name": "owp.http-loading-bar",
     "description": "React loading bar for owp.http",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "main": "index.js",
     "files": [
         "index.js"
