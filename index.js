@@ -53,7 +53,9 @@ const HTTPLoadingBar = ({ color = "green", ...rest }) => {
         setShow(false);
     }
 
-    return <ReactLoadingBar show={show} color={color} {...rest} />
+    // return <ReactLoadingBar show={show} color={color} {...rest} />
+    // Use createElement to that users doesn't have to jsx parse this file.
+    return React.createElement(ReactLoadingBar, { show, color, ...rest }, null);
 }
 
 HTTPLoadingBar.propTypes = {
