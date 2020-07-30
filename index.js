@@ -2,8 +2,10 @@
  * @author Andreas Arvidsson
  * https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar
  */
+
 import "react-loading-bar/dist/index.css";
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import ReactLoadingBar from "react-loading-bar";
 import HTTP from "owp.http";
 
@@ -51,7 +53,11 @@ const HTTPLoadingBar = ({ color = "green", ...rest }) => {
         setShow(false);
     }
 
-    //return <ReactLoadingBar show={show} {...props} />
-    return React.createElement(ReactLoadingBar, { show, color, ...rest }, null);
+    return <ReactLoadingBar show={show} color={color} {...rest} />
 }
-export default React.memo(HTTPLoadingBar);
+
+HTTPLoadingBar.propTypes = {
+    color: PropTypes.string
+};
+
+export default HTTPLoadingBar;

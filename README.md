@@ -5,7 +5,14 @@
 Uses [react.loading-bar](https://www.npmjs.com/package/react-loading-bar) to signal usage of [owp.http](https://github.com/AndreasArvidsson/OpenWebProject-HTTP)
 
 ## Installation
-`npm install owp.http-loading-bar --save`
+```
+npm install owp.http-loading-bar --save
+
+//Peer dependencies
+npm install owp.http --save
+npm install react --save
+npm install react-loading-bar --save
+```
 
 ## Usage
 ```javascript
