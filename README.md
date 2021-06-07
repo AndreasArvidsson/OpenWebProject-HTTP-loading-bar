@@ -31,4 +31,4 @@ import LoadingBar from "owp.http-loading-bar"
 ```
 
 * className: Set additional classes to the outer `progress` div
-* className: Set additional classes to the inner `progress-bar` div
+* classNameInner: Set additional classes to the inner `progress-bar` div
