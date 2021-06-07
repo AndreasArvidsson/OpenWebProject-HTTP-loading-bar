@@ -1,9 +1,10 @@
 console.log("test.js");
 
-import React, { useState } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom";
 import HTTP from "owp.http";
 import HttpLoadingBar from "../index";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function doGet() {
     HTTP.get("https://api.github.com/rate_limit")
@@ -12,30 +13,33 @@ function doGet() {
 }
 
 const App = () => {
-    const [color, setColor] = useState();
+    const [className, setClassName] = useState();
     return (
-        <React.Fragment>
-            <HttpLoadingBar color={color || undefined} />
-            <div>
+        <>
+            <HttpLoadingBar classNameInner={className} />
+            <main className="container">
                 <h1>owp.htttp-loading-bar</h1>
-                <input
-                    type="text"
-                    placeholder="color"
-                    value={color || ""}
-                    onChange={e => setColor(e.target.value)}
-                />
+
+                <select
+                    value={className}
+                    onChange={e => setClassName(e.target.value)}
+                >
+                    <option value={null}>[No class selected]</option>
+                    <option value="bg-success">bg-success</option>
+                    <option value="bg-info">bg-info</option>
+                    <option value="bg-warning">bg-warning</option>
+                    <option value="bg-danger">bg-danger</option>
+                </select>
                 &nbsp;
                 <button onClick={doGet}>
                     Try
                 </button>
-            </div>
-        </React.Fragment>
+            </main>
+        </>
     );
 }
 
 ReactDOM.render(
-    <main>
-        <App />
-    </main>,
+    <App />,
     document.getElementById("root")
 );
