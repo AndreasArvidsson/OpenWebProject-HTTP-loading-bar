@@ -1,7 +1,7 @@
 {
     "name": "owp.http-loading-bar",
-    "description": "React loading bar for owp.http",
-    "version": "1.2.1",
+    "description": "Bootstrap loading bar for owp.http",
+    "version": "2.0.0",
     "main": "index.js",
     "files": [
         "index.js"
@@ -29,9 +29,7 @@
     },
     "dependencies": {},
     "peerDependencies": {
-        "owp.http": ">=1.0.0",
-        "react": ">=16.8.0",
-        "react-loading-bar": ">=0.0.7"
+        "owp.http": ">=2.0.0"
     },
     "devDependencies": {
         "webpack": "latest",
@@ -50,7 +48,6 @@
         "mini-css-extract-plugin": "latest",
         "css-loader": "latest",
         "react": "latest",
-        "owp.http": "latest",
-        "react-loading-bar": "latest"
+        "owp.http": "latest"
     }
 }

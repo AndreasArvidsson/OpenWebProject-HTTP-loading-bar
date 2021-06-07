@@ -1,8 +1,6 @@
 # OpenWebProject HTTP-loading-bar
 
-**React loading bar for owp.http**
-
-Uses [react.loading-bar](https://www.npmjs.com/package/react-loading-bar) to signal usage/progress of [owp.http](https://github.com/AndreasArvidsson/OpenWebProject-HTTP)
+**React/Bootstrap loading bar for owp.http**
 
 ## Try it
 https://andreasarvidsson.github.io/OpenWebProject-HTTP-loading-bar/
@@ -13,11 +11,10 @@ npm install owp.http-loading-bar --save
 
 //Peer dependencies
 npm install owp.http --save
-npm install react --save
-npm install react-loading-bar --save
 ```
 
 ## Usage
+Import loading-bar before creating any instanced of owp.http.
 ```javascript
 import LoadingBar from "owp.http-loading-bar"
 
@@ -26,13 +23,12 @@ import LoadingBar from "owp.http-loading-bar"
 
 
 ## Options
-All options from [react.loading-bar](https://www.npmjs.com/package/react-loading-bar) are available.
-
 ```javascript
-<LoadingBar
-    show={true}
-    color="red"
-    change={false}
-    showSpinner={true}
-/>
+<LoadingBar 
+    className="sticky-top"
+    classNameInner="progress-bar-striped sticky-top" 
+/>;
 ```
+
+* className: Set additional classes to the outer `progress` div
+* className: Set additional classes to the inner `progress-bar` div

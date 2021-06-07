@@ -2,64 +2,110 @@
  * @author Andreas Arvidsson
  * https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar
  */
-
-import "react-loading-bar/dist/index.css";
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import ReactLoadingBar from "react-loading-bar";
+import { useState, useEffect, useRef } from "react";
 import HTTP from "owp.http";
 
-let countStarted = 0;
-let countFinished = 0;
-let isLoading = false;
-let intervalId;
+let interceptor;
 
-const HTTPLoadingBar = ({ color = "green", ...rest }) => {
-    const [show, setShow] = useState(false);
+HTTP.useOptions({
+    stateChangeInterceptor: (readyState) => {
+        if (interceptor) {
+            interceptor(readyState);
+        }
+    }
+});
+
+let countStarted, countFinished, intervalId;
+
+const HTTPLoadingBar = ({ className, classNameInner }) => {
+    const [now, setNow] = useState(0);
+    const countRef = useRef(now);
+    countRef.current = now;
 
     useEffect(() => {
-        HTTP.setOnStateChange(readyState => {
+        countStarted = 0;
+        countFinished = 0;
+
+        interceptor = (readyState) => {
             switch (readyState) {
-                case 1:
+                case XMLHttpRequest.OPENED:
                     ++countStarted;
-                    if (!isLoading) {
+                    if (!countRef.current) {
                         startLoadingBar();
                     }
                     break;
-                case 4:
+                case XMLHttpRequest.DONE:
                     ++countFinished;
                     if (countFinished >= countStarted) {
                         stopLoadingBar();
                     }
             }
-        });
+        };
+        return () => {
+            interceptor = null;
+        };
     }, []);
 
     const startLoadingBar = () => {
-        isLoading = true;
         progressLoadingBar();
         intervalId = setInterval(progressLoadingBar, 100);
-    }
+    };
 
     const progressLoadingBar = () => {
-        if (isLoading) {
-            setShow(true);
+        if (countStarted > countFinished && countRef.current < 99) {
+            setNow(calculatePercent(countRef.current));
         }
-    }
+        else {
+            clearInterval(intervalId);
+        }
+    };
 
     const stopLoadingBar = () => {
-        isLoading = false;
         clearInterval(intervalId);
-        setShow(false);
-    }
+        setNow(100);
+        setTimeout(() => {
+            if (countFinished >= countStarted) {
+                countStarted = 0;
+                countFinished = 0
+                setNow(0);
+            }
+        }, 500);
+    };
 
-    // return <ReactLoadingBar show={show} color={color} {...rest} />
-    // Use createElement to that users doesn't have to jsx parse this file.
-    return React.createElement(ReactLoadingBar, { show, color, ...rest }, null);
+    return (
+        <div className={"progress" + (className ? " " + className : "")}>
+            <div
+                className={"progress-bar" + (classNameInner ? " " + classNameInner : "")}
+                role="progressbar"
+                style={{ width: now + "%" }}
+                aria-valuenow={now}
+                aria-valuemin="0"
+                aria-valuemax="100" />
+        </div>
+    );
 }
 
-HTTPLoadingBar.propTypes = {
-    color: PropTypes.string
-};
-
 export default HTTPLoadingBar;
+
+const calculatePercent = (percent) => {
+    let random = 0;
+    if (percent < 10) {
+        random = 10; // 10
+    }
+    else if (percent < 25) {
+        random = Math.random() * 4 + 4; // 4 - 8
+    }
+    else if (percent < 65) {
+        random = Math.random() * 2 + 3; // 3 - 5
+    }
+    else if (percent < 90) {
+        random = Math.random() + 2; // 2 - 3
+    }
+    else if (percent < 99) { // 1
+        random = 1;
+    }
+    else {
+        random = 0; // 0
+    }
+    return percent + Math.round(random * 0.75);
+};
