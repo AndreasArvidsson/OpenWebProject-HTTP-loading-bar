@@ -4,6 +4,9 @@
     "version": "3.0.0",
     "main": "index.js",
     "types": "index.d.ts",
+    "files": [
+        "index.*"
+    ],
     "scripts": {
         "start": "webpack serve --config webpack.config.js --mode development --port 9090 --open",
         "build": "webpack --config webpack.config.js --mode production"
