@@ -1,11 +1,9 @@
 {
     "name": "owp.http-loading-bar",
     "description": "Bootstrap loading bar for owp.http",
-    "version": "2.0.2",
+    "version": "3.0.0",
     "main": "index.js",
-    "files": [
-        "index.js"
-    ],
+    "types": "index.d.ts",
     "scripts": {
         "start": "webpack serve --config webpack.config.js --mode development --port 9090 --open",
         "build": "webpack --config webpack.config.js --mode production"
@@ -29,7 +27,7 @@
     },
     "dependencies": {},
     "peerDependencies": {
-        "owp.http": ">=2.0.0"
+        "owp.http": ">=3.0.0"
     },
     "devDependencies": {
         "webpack": "^5.38.1",
