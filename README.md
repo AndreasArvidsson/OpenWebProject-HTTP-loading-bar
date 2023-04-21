@@ -3,9 +3,11 @@
 **React/Bootstrap loading bar for owp.http**
 
 ## Try it
+
 https://andreasarvidsson.github.io/OpenWebProject-HTTP-loading-bar/
 
 ## Installation
+
 ```
 npm install owp.http-loading-bar --save
 
@@ -14,21 +16,23 @@ npm install owp.http --save
 ```
 
 ## Usage
-Import loading-bar before creating any instanced of owp.http.
+
+Import loading-bar before creating any instances of owp.http.
+
 ```javascript
-import LoadingBar from "owp.http-loading-bar"
+import LoadingBar from "owp.http-loading-bar";
 
-<LoadingBar />
+<LoadingBar />;
 ```
-
 
 ## Options
+
 ```javascript
-<LoadingBar 
+<LoadingBar
     className="sticky-top"
-    classNameInner="progress-bar-striped sticky-top" 
-/>;
+    classNameInner="progress-bar-striped sticky-top"
+/>
 ```
 
-* className: Set additional classes to the outer `progress` div
-* classNameInner: Set additional classes to the inner `progress-bar` div
+-   className: Set additional classes to the outer `progress` div
+-   classNameInner: Set additional classes to the inner `progress-bar` div
