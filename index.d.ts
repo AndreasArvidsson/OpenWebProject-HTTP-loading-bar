@@ -1,6 +1,9 @@
-interface Options{
-    className: string
-    classNameInner: string
+interface Options {
+    className: string;
+    classNameInner: string;
 }
-declare const   HTTPLoadingBar:({ className, classNameInner }: Options)  =>  JSX.Element
+declare const HTTPLoadingBar: ({
+    className,
+    classNameInner,
+}: Options) => React.JSX.Element;
 export default HTTPLoadingBar;

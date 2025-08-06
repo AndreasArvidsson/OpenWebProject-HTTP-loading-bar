@@ -1,7 +1,7 @@
 {
     "name": "owp.http-loading-bar",
     "description": "Bootstrap loading bar for owp.http",
-    "version": "3.0.1",
+    "version": "3.1.0",
     "main": "index.js",
     "types": "index.d.ts",
     "files": [
@@ -23,7 +23,7 @@
     "homepage": "https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar",
     "repository": {
         "type": "git",
-        "url": "https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar.git"
+        "url": "git+https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar.git"
     },
     "bugs": {
         "url": "https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar/issues"
