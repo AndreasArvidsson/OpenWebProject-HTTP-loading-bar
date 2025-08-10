@@ -47,7 +47,11 @@ const HTTPLoadingBar = ({ className, classNameInner }) => {
         progressInterceptor = (loaded, total) => {
             // If we have a total calculate actual percentage
             if (total > 0) {
-                setPercentage(Math.round(100 * (loaded / total)));
+                const newPercentage = Math.round(100 * (loaded / total));
+                // In case of multiple parallel requests: never backtrack progress.
+                if (newPercentage > percentage) {
+                    setPercentage(newPercentage);
+                }
             }
             // Without a total we just advanced the loading bar incrementally
             else if (percentage === 0) {
