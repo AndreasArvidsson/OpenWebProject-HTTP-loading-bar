@@ -2,37 +2,38 @@
  * @author Andreas Arvidsson
  * https://github.com/AndreasArvidsson/OpenWebProject-HTTP-loading-bar
  */
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import HTTP from "owp.http";
 
-let interceptor;
+let stateChangeInterceptor, progressInterceptor;
 
 HTTP.useOptions({
     stateChangeInterceptor: (readyState) => {
-        if (interceptor) {
-            interceptor(readyState);
+        if (stateChangeInterceptor != null) {
+            stateChangeInterceptor(readyState);
         }
-    }
+    },
+    progressInterceptor: (loaded, total) => {
+        if (progressInterceptor != null) {
+            progressInterceptor(loaded, total);
+        }
+    },
 });
 
-let countStarted, countFinished, intervalId;
+let percentage, countStarted, countFinished, intervalId;
 
 const HTTPLoadingBar = ({ className, classNameInner }) => {
     const [now, setNow] = useState(0);
-    const countRef = useRef(now);
-    countRef.current = now;
 
     useEffect(() => {
+        percentage = 0;
         countStarted = 0;
         countFinished = 0;
 
-        interceptor = (readyState) => {
+        stateChangeInterceptor = (readyState) => {
             switch (readyState) {
                 case XMLHttpRequest.OPENED:
                     ++countStarted;
-                    if (!countRef.current) {
-                        startLoadingBar();
-                    }
                     break;
                 case XMLHttpRequest.DONE:
                     ++countFinished;
@@ -41,71 +42,70 @@ const HTTPLoadingBar = ({ className, classNameInner }) => {
                     }
             }
         };
+
+        progressInterceptor = (loaded, total) => {
+            // If we have a total calculate actual percentage
+            if (total > 0) {
+                setPercentage(Math.round(100 * (loaded / total)));
+            }
+            // Without a total we just advanced the loading board incrementally
+            else if (percentage === 0) {
+                advanceLoadingBar();
+                intervalId = setInterval(advanceLoadingBar, 100);
+            }
+        };
+
         return () => {
-            interceptor = null;
+            stateChangeInterceptor = null;
+            progressInterceptor = null;
         };
     }, []);
 
-    const startLoadingBar = () => {
-        progressLoadingBar();
-        intervalId = setInterval(progressLoadingBar, 100);
+    const setPercentage = (value) => {
+        if (percentage !== value) {
+            percentage = value;
+            setNow(value);
+        }
     };
 
-    const progressLoadingBar = () => {
-        if (countStarted > countFinished && countRef.current < 99) {
-            setNow(calculatePercent(countRef.current));
-        }
-        else {
-            clearInterval(intervalId);
+    const advanceLoadingBar = () => {
+        if (countStarted > countFinished) {
+            // Increment is proportional to how far we are from 100
+            // Takes about a second to fill up to the clamped value.
+            const increment = Math.ceil((100 - percentage) * 0.2);
+            // Update and clamp
+            setPercentage(Math.min(percentage + increment, 98));
         }
     };
 
     const stopLoadingBar = () => {
-        clearInterval(intervalId);
-        setNow(100);
+        setPercentage(100);
+
         setTimeout(() => {
             if (countFinished >= countStarted) {
+                clearInterval(intervalId);
                 countStarted = 0;
-                countFinished = 0
-                setNow(0);
+                countFinished = 0;
+                setPercentage(0);
             }
-        }, 500);
+        }, 100);
     };
 
     return (
         <div className={"progress" + (className ? " " + className : "")}>
             <div
-                className={"progress-bar" + (classNameInner ? " " + classNameInner : "")}
+                className={
+                    "progress-bar" +
+                    (classNameInner ? " " + classNameInner : "")
+                }
                 role="progressbar"
                 style={{ width: now + "%" }}
                 aria-valuenow={now}
                 aria-valuemin="0"
-                aria-valuemax="100" />
+                aria-valuemax="100"
+            />
         </div>
     );
-}
+};
 
 export default HTTPLoadingBar;
-
-const calculatePercent = (percent) => {
-    let random = 0;
-    if (percent < 10) {
-        random = 10; // 10
-    }
-    else if (percent < 25) {
-        random = Math.random() * 4 + 4; // 4 - 8
-    }
-    else if (percent < 65) {
-        random = Math.random() * 2 + 3; // 3 - 5
-    }
-    else if (percent < 90) {
-        random = Math.random() + 2; // 2 - 3
-    }
-    else if (percent < 99) { // 1
-        random = 1;
-    }
-    else {
-        random = 0; // 0
-    }
-    return percent + Math.round(random * 0.75);
-};
