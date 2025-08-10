@@ -1,9 +1,9 @@
-interface Options {
+interface Props {
     className: string;
     classNameInner: string;
 }
 declare const HTTPLoadingBar: ({
     className,
     classNameInner,
-}: Options) => React.JSX.Element;
+}: Props) => React.JSX.Element;
 export default HTTPLoadingBar;

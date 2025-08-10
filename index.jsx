@@ -37,6 +37,7 @@ const HTTPLoadingBar = ({ className, classNameInner }) => {
                     break;
                 case XMLHttpRequest.DONE:
                     ++countFinished;
+
                     if (countFinished >= countStarted) {
                         stopLoadingBar();
                     }
