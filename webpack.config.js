@@ -1,6 +1,5 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ESLintPlugin = require("eslint-webpack-plugin");
 const path = require("path");
 
 module.exports = (env, argv) => {
@@ -46,17 +45,13 @@ module.exports = (env, argv) => {
             new MiniCssExtractPlugin({
                 filename: "styles.css",
             }),
-            //Lint JS files
-            new ESLintPlugin({
-                overrideConfigFile: path.resolve(__dirname, "eslintrc.js"),
-            }),
         ],
     };
 
     if (argv.mode === "production") {
         res.output = {
             path: path.resolve(__dirname, "docs"),
-            filename: "index.jsx",
+            filename: "index.js",
         };
     }
 
