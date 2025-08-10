@@ -49,7 +49,7 @@ const HTTPLoadingBar = ({ className, classNameInner }) => {
             if (total > 0) {
                 setPercentage(Math.round(100 * (loaded / total)));
             }
-            // Without a total we just advanced the loading board incrementally
+            // Without a total we just advanced the loading bar incrementally
             else if (percentage === 0) {
                 advanceLoadingBar();
                 intervalId = setInterval(advanceLoadingBar, 100);
@@ -71,8 +71,7 @@ const HTTPLoadingBar = ({ className, classNameInner }) => {
 
     const advanceLoadingBar = () => {
         if (countStarted > countFinished) {
-            // Increment is proportional to how far we are from 100
-            // Takes about a second to fill up to the clamped value.
+            // Increment is proportional to how far we are from 100. Takes about a second to fill up.
             const increment = Math.ceil((100 - percentage) * 0.2);
             // Update and clamp
             setPercentage(Math.min(percentage + increment, 98));
