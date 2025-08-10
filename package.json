@@ -1,8 +1,8 @@
 {
     "name": "owp.http-loading-bar",
     "description": "Bootstrap loading bar for owp.http",
-    "version": "3.1.0",
-    "main": "index.js",
+    "version": "3.2.0",
+    "main": "index.jsx",
     "types": "index.d.ts",
     "files": [
         "index.*"
