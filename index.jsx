@@ -22,6 +22,8 @@ HTTP.useOptions({
 
 let percentage, countStarted, countFinished, intervalId;
 
+const startValue = 5;
+
 const HTTPLoadingBar = ({ className, classNameInner }) => {
     const [now, setNow] = useState(0);
 
@@ -34,6 +36,7 @@ const HTTPLoadingBar = ({ className, classNameInner }) => {
             switch (readyState) {
                 case XMLHttpRequest.OPENED:
                     ++countStarted;
+                    setPercentage(startValue);
                     break;
                 case XMLHttpRequest.DONE:
                     ++countFinished;
@@ -41,6 +44,7 @@ const HTTPLoadingBar = ({ className, classNameInner }) => {
                     if (countFinished >= countStarted) {
                         stopLoadingBar();
                     }
+                    break;
             }
         };
 
@@ -54,7 +58,7 @@ const HTTPLoadingBar = ({ className, classNameInner }) => {
                 }
             }
             // Without a total we just advanced the loading bar incrementally
-            else if (percentage === 0) {
+            else if (percentage === startValue) {
                 advanceLoadingBar();
                 intervalId = setInterval(advanceLoadingBar, 100);
             }

@@ -46,6 +46,9 @@ module.exports = (env, argv) => {
                 filename: "styles.css",
             }),
         ],
+        devServer: {
+            port: 8000,
+        },
     };
 
     if (argv.mode === "production") {
